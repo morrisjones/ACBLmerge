@@ -1,0 +1,416 @@
+ACBLmerge changelog
+
+1.3.5 - 2014-11-19
+  - Mac OS X is fully supported out of the box.
+    - Uses latest DDS 2.7.0 for double dummy calculations.
+    - Ships with all necessary dynamic link libraries.
+  - Tightened check for Board-A-Match (BAM) games. 'Bam!Berger Future Masters'
+    event name was inadvertently tripping the BAM mode.
+
+1.3.4 - 2014-11-07
+  - Upgraded to version 2.7.0 of Bo Haglund DDS double dummy solver (dds.dll)
+  - Bundled 7-zip and use it to parse the masterpoint database on
+    Windows to avoid dependency on unsupported Archive-Lha package.
+  - Converted all HTML output, including Pair Recap and Cut-and-Paste Aid
+    popups, to HTML5.
+  - American Style scoring (-as switch) now also applies to popup recap
+    sheets (issue reported by Philippe Lamoise).
+  - Added board number "links" from popup recap sheet to main report.
+  - Fixed N-S and E-W flip of asymmetric double dummy contract results.
+  - Fixed swapped East/West reporting of par contract when East and West
+    take a different number of tricks (reported by Randy Dougherty).
+  - Fixed several par bugs due to algorithm issues and also faulty
+    algorithm optimization (based on reports from Randy Dougherty,
+    Jim Bradley, Bo Haglund, Soren Hein, and Philippe Lamoise). Issues
+    addressed:
+    1. Making contract could be overlooked when a sacrifice in a higher
+       denomination was an improvement on the other partnership's contract.
+    2. Additional sacrifice contracts in lower ranking denomination(s)
+       could be skipped.
+    3. Some additional sacrifice contracts were reported in lower ranking
+       denominations that other partnership could improve on with a making
+       contract.
+  - Fixed bug where face view tooltip did not stay anchored at cursor
+    location when transitioning to player who have images of differing
+    heights.
+  - Fixed bug that caused player tooltip to not appear when player's full
+    name was more than 22 characters long (reported by Charles Babcock).
+  - Fixed incorrect sorting issue for IMP Pairs when scores are -100.00 IMPs
+    and lower. Code was only examining last six characters and therefore
+    missing the minus sign. (extension of fix in 1.3.0 release)
+  - Fixed popup recap sheet bugs for two letter sections (reported by
+    Jim Bradley)
+  - Fixed bug that caused an extra field to be added to the JSON output
+    for PASS OUT results.
+  - Made CSS change to prevent winners table from wrapping ugly when window
+    is narrow (suggested by Jim Bradley).
+  - Prevent possibility of 'Dlr: ' and 'Vul: ' line wrapping after the colon
+    which occurred in rare cases (reported by Jim Bradley)
+  - Tightened parsing of Overall and Section rankings.
+  - Suppressed warning when writing JSON when performing
+    Extra Trick Factor (ETF) calculation for doubled contracts.
+  - Cleaned up many minor JavaScript issues found with jslint.
+  - Exit with a warning if -b option is used with 64-bit Perl on Windows.
+  - Added preliminary support for Board-a-Match (BAM) events.
+
+1.3.3 - 2012-07-26
+  - Fixed LoTT display (regression in 1.3.2 release)
+  - Switched to latest DDS release (2.2.1, 2012-07-16).
+
+1.3.2 - 2012-07-23
+  - Added ability to write hands as Bridge Base LIN files.
+  - No longer require ACBLscore game file to map player names to 
+    player numbers (e.g. -mp and -fs switches) when ACBLscore report
+    already contains the player numbers.
+  - Enhanced data mining support for pair games to include board
+    results, contracts, opening lead, deal, double dummy analysis,
+    par contracts, and LoTT and extra trick factor (ETF) calculations.
+  - Added -mssurl switch for linking to list of overall section
+    and/or session ranks.
+  - Added a check for attempts to process multiple events in a single
+    ACBLscore report. This is not supported but previously ran and
+    created partly broken HTML.
+
+  - Reworded text shown below list of winners for multi-session events.
+  - Changed 'Missing hand record' message to 'No hand record'.
+
+  - Fixed bug that caused leading digit of masterpoint awards 10.00
+    or higher to be ignored, e.g. and award of 14.78 MP would be.
+    reported as 4.78 in the winners lists and in the data mining output.
+  - Fixed broken v## team hovering tooltips for team results that
+    occurred in certain cases.
+  - Fixed bug in creation of hovering tooltip for v## opposing teams
+    in team output that could cause partial HTML output.
+  - Fixed bug in linking hyperlinking of names in second column
+    of non final team game results.
+  - Fixed bugs in handling of teams games which include player numbers.
+    Datamining JSON and team number tooltip were incorrect.
+  - Fixed handling of opening lead display in popup recap sheet for
+    Pass Out auctions. Should display nothing but previously displayed
+    a lone suit symbol. [reported by Charles Babock]
+  - Fixed parsing of movements with more than one word. Previously
+    data mining JSON would return only the first word, e.g. 'ONE'
+    instead of 'ONE WINNER'.
+  - Fixed conversion of 'Regional' --> 'Regionall' in tournament name
+
+1.3.1 - 2012-06-19
+  - Fixed bug in iPhone customized output that caused results for
+    pairs 2,3,5,6,8,9,etc to go missing if input file does not contain
+    cities for each pair.   
+  - No longer report missing contract errors if contract in BWS file is
+    an empty string and ACBLscore shows a PASS. This is a workaround
+    for how the Bridgemate server communicates with ACBLscore.
+  - Added a check in playerNumsAndNames() to make sure ACBLscore game
+    file seems legitimate, exiting with an error if not.
+  - Added very basic JSON support generated by -dm switch for team games
+    so that masterpoint awards can be tracked.
+  - Made minor improvements to the documentation.
+
+1.3.0 - 2012-02-24
+  - Added support for team games.
+  - Added option (-w) to display a list of masterpoint winners.
+  - Significantly faster double dummy analysis on Windows. Added
+    ddsolver.exe for direct access to the latest version (2.1.2) of
+    Bo Haglund's double dummy solver DLL (dds.dll).
+  - Added Bridgemate / BridgePad support on non-Windows platforms.
+  - Added support for "old" Duplimate format (.bri files)
+  - Added data mining (-dm) switch. Produces JSON output.
+
+  - Fixed bug in par computation which caused some sacrifices
+    in lower ranking denomination to be ignored when a sacrifice
+    was found in a higher denomination. The following hand exhibited
+    the problem [reported by Larry Sherman]
+    AKJ43.9.AJ63.642 75.K7654.4.AQT93 T986.Q8.K872.K75 Q2.AJT32.QT95.J8
+  - Fixed incorrect sorting issue for IMP Pairs when scores are -10.00 IMPs
+    and lower. Code was only examining last five characters and therefore
+    missing the minus sign. [reported by Bruce McIntyre]
+  - Fixed issues with popup recap sheets for IMP Pairs.
+
+  - Added support for BridgePad lead card format, i.e. rank-suit,
+    as opposed to instead of the suit-rank format used by Bridgemate.
+    [reported by David Kopper]
+  - Added -as option for "American Style" scoring where the contracts
+    made are reported as total number of tricks taken (less book),
+    instead of relative to the contract, e.g. "4S E 5" instead of
+    "4S E +1" [requested by Joe Steele of Bridgemate]
+
+  - Improved sorting of results. If electronic scoring data is available,
+    a secondary sort will be performed on the contracts (descending
+    denomination, followed by descending level, followed by seat). If
+    opening leads are available, a tertiary sort will be performed on the
+    lead (descending suit, descending rank). This looks better when
+    there are many results (e.g. big open event at a regional).
+  - Changed definition of "top" and "bottom" boards in the popup recap
+    sheets to less than 1% and greater than 99% respectively. Previously
+    top and bottom were set to 0% and 100%. The new definitions flag boards
+    that are not quite 0% or 100% due to how ACBLscore scales results on
+    boards that are played a different number of times in different 
+    sections or due to irregularities. For example 0.04% is now a "bottom".
+  - Removed distracting hyperlink underline from the help link
+    question mark box at the upper left corner of the HTML output.
+
+  - Added support CGI hyperlinking of player names for better
+    integration with websites, in particular Philippe Lamoise's
+    bridgeresults.net
+  - Added -txturl and -giburl switches (analogous to -pbnurl switch)
+  - Added -appdir option to explicitly define the application
+    directory in case HOME environment variable is not defined
+    on Unix, e.g. for website backend programming.
+  - No longer accept filenames and URLs that begin with a dash for
+    switches that require an argument. This minor restriction avoids
+    confusion when a switch would be swallowed up as a required argument
+    to the previous switch.
+  - Added $EXIT_REPROCESS_ERR exit code, distinct from
+    $EXIT_ACBLSCORE_PARSE_ERR
+
+  - Fixed HTML Validation issue by removing <form> surrounding button for
+    cut-and-paste aid.
+  - Made very minor cosmetic changes to HTML output for pairs games
+    that do not affect how the result is rendered by browsers.
+
+1.2.3 - 2011-05-22
+  - Bug fix: If -fc was specified, but neither -mp nor -fs was
+    specified, the faces did not appear in the HTML tooltip.
+  - Bug fix: User home directory was incorrectly specified for Unix.
+    [reported by Bruce McIntyre]
+  - Download Club Update Database to per user application specific
+    folder, consistent with similar changes made in version 1.2.0
+  - Changed code to use hex() function in a few places for better
+    readability. [suggested by Roman Kaluzniacki]
+  - Eliminated Perl warnings (via -w Perl switch) generated when 
+    reading DUP files.
+
+1.2.2 - 2011-04-24
+  - Fixed incorrect handling of passed out hands in Contract column
+    of HTML output (was okay in popup recap sheets).
+  - Bug fix: Contract was not included in iPhone customized HTML output
+    for single section events other than A section.
+  - Fixed bug where if a game file was specified for any switch that
+    required a game file (-fc, -fs, -mp) but not for last such switch,
+    the program would mistakenly try to use the default filename. This
+    bug usually only affected big tournaments, e.g. regionals, where
+    games files are often named something like 18AFT.ACA instead of
+    YYMMDD.ACA.
+  - Changed code to handle arbitrary white space around Bridgemate /
+    BridgePad section designations. Originally handled case of a single
+    trailing space but then a case with two trailing spaces appeared.
+
+1.2.1 - 2011-03-25
+  - Fixed bug that prevented electronic scoring from being included in
+    single section events other than section 'A'.
+  - Fixed bug that prevented tooltip from working in iPhone output.
+  - Tightened HTML output to eliminate some issues detected by the Total
+    Validator Tool.
+
+1.2.0 - 2011-03-21
+  - Added ability to include contract and opening lead from Bridgemate
+    and BridgePad electronic scoring equipment. See -b option
+  - Added -fs option for field strength calculation (average and geometric
+    mean of MP holdings of all players)
+  - Added -mp option to show player masterpoint holdings via tooltip
+    when mouse is held over a player name
+  - Added -fc option to display faces when mouse is held over a player name
+  - Added reading and writing of double dummy results from/to PBN files in
+    OptimumResultTable.
+  - Added Bridgify format to Cut-and-Paste aid to help users who are not
+    given a PBN link or have a broken one because the ACBLmerge user
+    forgot to upload the PBN file.
+  - Recovered some screen real estate by wrapping long double dummy make
+    lines (caused by lots of contracts that make a different number of
+    tricks from each side).
+  - Change to per user application specific folder (%APPDATA\ACBLmerge or 
+    ~/.ACBLmerge) for application data, i.e. masterpoint database download
+    and temporary file created during double dummy analysis, so that users
+    can use all program features even if they can not write to the
+    application directory.
+  - Added question mark help box at upper left corner of report to make
+    "Explanation of report features" standout more.
+  - Removed copyright message. It was a legal remnant that should have
+    been removed after adopting the GNU General Public License GPLv3
+    license several versions ago.
+
+1.1.3 - 2010-12-17
+  - Fixed issue where ACBLmerge would claim certain ACBLscore files were
+    not valid ACBLscore report files because they contained a pseduo-tag
+    like <!A137059>. Usually ACBLscore creates pseudo-tags like <!A>. But
+    sometimes it includes the club number (observed in the output for a
+    STAC game).
+  - If -hurl is not specified, the help URL will be created and point to:
+    http://lajollabridge.com/Software/ACBLmerge/ACBLmergeReport.htm
+    Use new -nohurl switch to completely suppress the help link.
+  - Added -pbnurl for specifying location of PBN file on the website
+    if it will not be placed in same location as HTML file.
+  - Now only strip path from PDF filename if it is a Windows specific
+    style path; otherwise leave alone anything that could be a valid
+    hyperlink.
+  - Added :crlf Perl I/O layer for proper handling of files with Windows
+    CR LF line termination when running from Unix.
+  - Added -crlf switch to control line termination of output files.
+
+  - Very minor edits to ACBLmergeReport.htm
+  - Additions to ACBLmergeAbout.htm. Added command line help summary,
+    line termination explanation, how to start a DOS shell on Vista
+    and Windows 7, and the importance of placing all output files in
+    the same folder on your website (except when overridden by -pbnurl
+    and/or -pdf options).
+  - zip and tar archive filename now include program version, i.e.
+    ACBLmerge113.zip instead of just ACBLmerge.zip
+
+1.1.2 - 2010-04-16
+  - Fixed numerous problems with popup recap sheets generated for Howell
+    (one winner) movements due to a bug in ACBLmerge.js
+
+1.1.1 - 2010-04-13
+  - Fixed bugs introduced in version 1.1.0 when multiple CPUs are used
+    to perform double dummy analysis. 
+
+1.1.0 - 2010-04-07
+  - Add recap sheets for each pair (click on pair number for popup)
+  - Fixed iPhone output in dumpHTML() to accommodate changes in
+    ACBLscore 7.60 (released  Mar 21, 2009) and other minor problems
+    with iPhone output. Since ACBLscore 7.60, the player numbers
+    and player cities are no longer listed.
+  - No longer include blank line between each pair result in regular
+    HTML output.
+  - iPhone filename is now based on output filename rather than the
+    ACBLscore results filename. This makes a difference when the output
+    filename is specified rather than automatically generated from the
+    ACBLscore results filename. Ex: foo.htm generates foo_iphone.htm.
+  - Fixed "Jump directly to board" navigation which broke in IE8. This
+    seems to be due to a bug in IE8 where named anchors to blank
+    sections do not work, e.g. a <tr> containing nothing except other
+    tags.
+  - Add option (-tm) to put a center marker (green square) in the middle
+    of every hand layout (requested by Rich DeMartino)
+  - Added HTML check boxes to iPhone output to hide either all boards
+    (+ analysis) or all results for all boards.
+  - Fixed bug in readPBN() that caused PBN read to fail if there was
+    extra white space at the end of the PBN file.
+  - Fixed bug that caused hang in par() on par zero deals.
+  - Cleaned up display of hot deals, i.e. where  both sides can make
+    best contract.
+  - Added ability for user to inject custom the HTML (e.g. banners,
+    menu bars, footers, etc via the -ih, -isb, and -ieb switches.
+  - Wrapped ACBLmerge output in <div id="ACBLmerge"> tag to better support
+    functionality provided by the new -ih, -isb, and -ieb switches.
+
+  - Many changes to ACBLmergeAbout.htm
+  - Minor edits to ACBLmergeReport.htm and included a link to par zero
+    deals on Thomas's Bridge Fantasia.
+
+  - Changed some informative messages to print to STDERR so that when
+    output is directed to STDOUT (i.e. no -o switch) these messages
+    will be in a separate steam (most informative messages were already
+    directed to STDERR).
+  - Define numerous exit codes ($EXIT_FOO) for better logging when run
+    as part of a pipeline.
+  - Cleaned up command line help slightly.
+  - CSS and JavaScript is now stored in separate ACBLmerge.css and
+    ACBLmerge.js files respectively instead of directly in the perl
+    script using HEREDOC notation. This change makes it easy to validate
+    CSS and JavaScript changes.
+  - Changed threads::joinable to 0 for compatibility with Perl 5.6 and
+    5.8 which do not defined threads::joinable in threads.pm
+  - No longer print out path to ddd.exe (or ddd) when performing double
+    dummy analysis.
+  - Hands are now stored in a hash (%hd) instead of an array (@hd). This
+    provides a bit more flexibility and is consistent with treatment of
+    board results (%br).
+
+1.0.8 - 2009-05-04
+  - Added multiple CPU (core) support for faster double dummy analysis
+    See -c option. It sure is fast on a quad core Dell Precision M6400!
+  - Added JavaScript code to ordinary HTML page to automatically switch
+    to iPhone page when iPhone/iPod client seen and the iPhone version
+    is being generated (via -iphone).
+  - Created a program logo and updated ACBLmergeAbout.htm documentation.
+  - Fixed bug that prevented created of link to text version of ACBLscore
+    output if input was ABCLscore HTML and -txt option was specified.
+  - Fixed bug that caused input HTML file to be overwritten instead of
+    first being renamed .orig.htm if .htm extension was not entirely
+    lower case.
+  - Fix for erroneous reporting of that input file is not in ACBLscore
+    traveler report.
+
+1.0.7 - 2009-04-11
+  - Fixed bug that prevented processing certain combined session events.
+  - Gracefully handle case of missing hand records for individual hands
+    (e.g. board #37 when a standard set of 36 is created with Dealmaster)
+  - Strip repeated DATE> and DIR> lines from all but the first section
+    header in the HTML output.
+  - Add a command line option (-pbnevt) to explicitly define the Event
+    Name written in PBN output (default action is use Event Name in the
+    ACBLscore output).
+  - Significantly improved iPhone customized HTML output.
+  - Add explanations of new command line switches to ACBLmergeAbout.htm
+  - If report filename is HTML, rename original to foo.orig.htm instead
+    of clobbering it.
+  - Fixed issues creating iPhone HTML output when input file is HTML.
+
+1.0.6 - 2009-04-07
+  - First attempt at an iPhone customized HTML output (-iphone switch)
+  - Fixed bug which generated 8 level sacrifice as the par contract,
+    e.g. 8D*-EW-6. Amusingly, long ago the official rules of bridge
+    did not prohibit bidding beyond 7N, but that loophole was fixed.
+  - For double dummy analysis, ddd.exe will now first be searched for
+    in the same directory containing the Perl script (this simplifies
+    deployment); otherwise it relies on the OS to search the system
+    path (as before).
+  - Write link to PBN and/or GIB file if supplied hand records are in
+    PBN or GIB format even if -p or -g options respectively are not
+    supplied.
+  - Add -pdf options to create link to PDF version of hand records.
+  - Add ability to process HTML files generated by ACBLscore (these
+    are basically the same as the text output with a <pre> tag slapped
+    around the text.
+  - Added informative error messages if ACBLscore report is not in
+    the correct format or isn't even an ACBLscore output file.
+  - Addressed three minor JavaScript lint issues found by CSE Validator
+    Std 9.01.
+  - Fixed bug which caused 'Unrecognized Switch' message when strings
+    are encountered which are not switches and are not used as an argument
+    to a switch. Changed error message to 'Unexpected string: foo (ignored)'.
+  - Code now complies with 'use strict' pragmas.
+
+1.0.5 - 2008-10-13
+  - Suppress a warning generated when reading a board from a
+    Duplimate file where the last hand (west) contains void(s)
+    in the lowest ranking suit(s).
+  - Leave [Site] field out of PBN file if Club information is
+    absent in ACBLscore report.
+  - Parse "Club No." field from and include it as a comment in
+    PBN output.
+  - Fixed bug that caused link to PBN file to be incorrect in
+    some cases (was not correctly stripping file path).
+  - Change message next to PBN hyperlink because "Save Link As..."
+    in Firefox is "Save Target As..." in IE.
+
+1.0.4 - 2008-10-08
+  - Fixed parameter passing issues. Due to Perl's unusual scoping
+    rules the code behaved correctly but not for the reasons one
+    would expect by naively examining the code. The changes put the
+    code on a sounder footing.
+  - Fixed a few typos (mostly in comments)
+  - Delete temporary file generated by double dummy calculation
+  - Temporary filename is now process dependent, i.e. ddd$$.tmp
+    to reduce chance of collision if multiple instances are run.
+  - Provide an informative message if ddd.exe can not be found.
+  - Declare HTML output to be English, i.e. <html lang="en">
+
+1.0.3 - 2008-09-29
+  - Fixed incomplete reporting of par contract(s) in certain
+    circumstance when par score was +110 or -110.
+  - Added comment in HTML output identifying result as having been
+    generated by ACBLmerge
+
+1.0.2 - 2008-09-28
+  - Fixed two warnings generated on hands with void suit(s). These
+    warnings did not cause the code to malfunction because Perl treats
+    undef as 0 in a numeric context.
+  - Added information about required ACBLscore output to Perl help
+    displayed when no arguments are supplied
+  - Added some informative messages (sent to STDERR)
+  - Added -v (version) and -q (quiet) switches
+
+1.0.1 - 2008-09-25
+  - Original version
